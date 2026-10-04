@@ -3,135 +3,1151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monitores da Defesa Civil PR - Capacitação e Protagonismo Jovem</title>
+    <title>Monitores da Defesa Civil - Paraná | Projeto Escolar Educativo</title>
     <style>
-        /* Estilos básicos para visualização estruturada e escaneabilidade */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; background-color: #f9f9f9; }
-        header { background: #004587; color: #fff; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
-        nav ul { list-style: none; padding: 0; }
-        nav ul li { display: inline; margin-right: 15px; }
-        nav a { color: #fff; text-decoration: none; font-weight: bold; }
-        section { background: #fff; padding: 30px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #004587; }
-        h1 { color: #fff; }
-        .cta-button { display: inline-block; background: #ff6600; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 25px; font-weight: bold; margin-top: 10px; }
-        .cta-button:hover { background: #e05500; }
-        .alert-box { background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 15px 0; border-radius: 4px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
-        .card { background: #f1f1f1; padding: 20px; border-radius: 6px; border-top: 4px solid #004587; }
-        .card-antes { border-top-color: #28a745; }
-        .card-durante { border-top-color: #dc3545; }
-        .card-depois { border-top-color: #ffc107; }
-        code { background: #eee; padding: 2px 6px; border-radius: 4px; }
+        /* ==========================================================================
+           1. VARIÁVEIS CSS E CONFIGURAÇÕES GERAIS
+           ========================================================================== */
+        :root {
+            /* Cores Institucionais e Temáticas */
+            --primary-blue: #004587;
+            --primary-dark: #002d59;
+            --primary-light: #e6f0fa;
+            --secondary-amber: #f59e0b;
+            --alert-orange: #d97706;
+            --danger-red: #dc2626;
+            --safety-green: #16a34a;
+            
+            /* Neutros */
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            
+            /* Transições e Sombras */
+            --transition: all 0.3s ease;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --radius-md: 10px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Estilos de Foco para Acessibilidade Teclado */
+        a:focus-visible, button:focus-visible, input:focus-visible {
+            outline: 3px solid var(--secondary-amber);
+            outline-offset: 2px;
+        }
+
+        /* ==========================================================================
+           2. CABEÇALHO E NAVEGAÇÃO
+           ========================================================================== */
+        .site-header {
+            background-color: var(--primary-blue);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo-subtitle {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-emergency-nav {
+            background-color: var(--danger-red);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .btn-emergency-nav:hover {
+            background-color: #b91c1c;
+        }
+
+        /* Botão Hambúrguer (Mobile) */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0.2rem;
+        }
+
+        /* ==========================================================================
+           3. BANNER DE PROJETO ESCOLAR & HERO SECTION
+           ========================================================================== */
+        .school-notice {
+            background-color: #fef3c7;
+            color: #92400e;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-bottom: 1px solid #fde68a;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 4rem 1.5rem;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--alert-orange);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #b45309;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* ==========================================================================
+           4. LAYOUT PRINCIPAL E SEÇÕES
+           ========================================================================== */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--secondary-amber);
+            border-radius: 2px;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* Grid de Cards Acesso Rápido */
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .quick-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .quick-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-blue);
+        }
+
+        .quick-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .quick-card h3 {
+            font-size: 1.1rem;
+            color: var(--primary-blue);
+        }
+
+        /* ==========================================================================
+           5. CARDS DIDÁTICOS E DESASTRES
+           ========================================================================== */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            padding: 1.75rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-antes { border-top: 5px solid var(--safety-green); }
+        .card-durante { border-top: 5px solid var(--alert-orange); }
+        .card-depois { border-top: 5px solid var(--primary-blue); }
+
+        .card-header-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.75rem;
+        }
+
+        .badge-antes { background-color: var(--safety-green); }
+        .badge-durante { background-color: var(--alert-orange); }
+        .badge-depois { background-color: var(--primary-blue); }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .card ul {
+            padding-left: 1.25rem;
+        }
+
+        .card li {
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        /* Seções sanfona/accordion para desastres */
+        .accordion-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .accordion-header:hover {
+            background-color: var(--primary-light);
+        }
+
+        .accordion-content {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+        }
+
+        .accordion-item.active .accordion-content {
+            padding: 1.5rem;
+            max-height: 2000px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        /* ==========================================================================
+           6. EMERGÊNCIA E ALERTAS OFICIAIS
+           ========================================================================== */
+        .emergency-section {
+            background-color: #fef2f2;
+            border: 2px solid var(--danger-red);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+        }
+
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .emergency-card {
+            background-color: white;
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--danger-red);
+        }
+
+        .emergency-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--danger-red);
+            display: block;
+        }
+
+        .emergency-label {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .alerts-box {
+            background-color: var(--primary-light);
+            border-left: 5px solid var(--primary-blue);
+            padding: 1.5rem;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            margin-top: 2rem;
+        }
+
+        /* ==========================================================================
+           7. CHECKLIST INTERATIVO
+           ========================================================================== */
+        .checklist-container {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background-color: var(--bg-body);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .checklist-item:hover {
+            background-color: var(--primary-light);
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 1.2rem;
+            height: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* ==========================================================================
+           8. QUIZ EDUCATIVO
+           ========================================================================== */
+        .quiz-container {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            background-color: var(--bg-body);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .quiz-option:hover:not(:disabled) {
+            background-color: var(--primary-light);
+            border-color: var(--primary-blue);
+        }
+
+        .quiz-option.correct {
+            background-color: #dcfce7;
+            border-color: var(--safety-green);
+            color: #14532d;
+            font-weight: bold;
+        }
+
+        .quiz-option.incorrect {
+            background-color: #fee2e2;
+            border-color: var(--danger-red);
+            color: #7f1d1d;
+        }
+
+        .quiz-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           9. RODAPÉ E BOTÃO VOLTAR AO TOPO
+           ========================================================================== */
+        .site-footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 3rem 1.5rem 1.5rem 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 1.5rem auto 0 auto;
+            text-align: center;
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-blue);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            z-index: 99;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--alert-orange);
+        }
+
+        /* ==========================================================================
+           10. RESPONSIVIDADE (MEDIA QUERIES)
+           ========================================================================== */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-blue);
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 1rem;
+                display: none;
+                box-shadow: var(--shadow-lg);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- ================================================================= -->
-    <!-- SEÇÃO 1: ARQUITETURA DO SITE E MENU DE NAVEGAÇÃO (SITEMAP)      -->
-    <!-- ================================================================= -->
-    <header>
-        <h1>Monitores da Defesa Civil - Paraná</h1>
-        <p><strong>Nota do Desenvolvedor/UX:</strong> Menu responsivo (hambúrguer no mobile). Links diretos para ações rápidas de sobrevivência no topo.</p>
-        <nav aria-label="Navegação Principal">
-            <ul>
-                <li><a href="#home">Início</a></li>
-                <li><a href="#o-que-faz">O que faz um Monitor?</a></li>
-                <li><a href="#guia-sobrevivencia">Guia de Sobrevivência (Tempestades e Tornados)</a></li>
-                <li><a href="#kit-ferramentas">Kit de Ferramentas</a></li>
-            </ul>
-        </nav>
+    <!-- BANNER DE IDENTIFICAÇÃO DO TRABALHO ESCOLAR -->
+    <aside class="school-notice" aria-label="Aviso de Projeto Educativo">
+        📚 <strong>PROJETO ESCOLAR EDUCATIVO:</strong> Este site é um trabalho acadêmico sobre prevenção e ações em emergências no Paraná.
+    </aside>
+
+    <!-- NAVEGAÇÃO PRINCIPAL -->
+    <header class="site-header">
+        <div class="nav-container">
+            <div class="logo-area">
+                <span class="logo-icon" aria-hidden="true">🛡️</span>
+                <div>
+                    <a href="#home" class="logo-text">Monitores Defesa Civil</a>
+                    <span class="logo-subtitle">Projeto Escolar — Paraná</span>
+                </div>
+            </div>
+
+            <button class="hamburger" id="hamburgerBtn" aria-label="Abrir Menu de Navegação" aria-expanded="false">
+                ☰
+            </button>
+
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link">Início</a></li>
+                    <li><a href="#monitor" class="nav-link">O Monitor</a></li>
+                    <li><a href="#guia" class="nav-link">O que Fazer</a></li>
+                    <li><a href="#desastres" class="nav-link">Tipos de Desastre</a></li>
+                    <li><a href="#checklist" class="nav-link">Kit Emergência</a></li>
+                    <li><a href="#quiz" class="nav-link">Quiz</a></li>
+                    <li><a href="#emergencia" class="btn-emergency-nav">🚨 Emergência</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
+    <!-- PÁGINA INICIAL (HERO SECTION) -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <span class="hero-badge">Protagonismo Jovem & Prevenção</span>
+            <h1>Liderança que Protege, Conhecimento que Salva</h1>
+            <p>Aprenda a agir com segurança antes, durante e depois de emergências climáticas no Estado do Paraná. Informação clara para estudantes e toda a comunidade.</p>
+            <div class="hero-buttons">
+                <a href="#guia" class="btn btn-primary">Como Agir em uma Emergência</a>
+                <a href="#emergencia" class="btn btn-secondary">Telefones Úteis</a>
+            </div>
+        </div>
+    </section>
+
     <main>
-        <!-- ================================================================= -->
-        <!-- SEÇÃO 2: CONTEÚDO DA HOME (PÁGINA INICIAL)                        -->
-        <!-- ================================================================= -->
-        <section id="home" aria-labelledby="home-title">
-            <h2 id="home-title">1. Página Inicial (Home)</h2>
+        <!-- ACESSO RÁPIDO -->
+        <section aria-labelledby="quick-access-title">
+            <h2 id="quick-access-title" class="section-title">Acesso Rápido às Orientações</h2>
+            <p class="section-desc">Selecione o tema para acessar os procedimentos de segurança imediatamente.</p>
             
-            <!-- Headline Impactante -->
-            <div style="background: linear-gradient(135deg, #004587, #002244); color: white; padding: 40px; border-radius: 8px; text-align: center;">
-                <h3 style="color: #ff6600; font-size: 2rem; margin-top: 0;">Liderança que protege. Jovem que Transforma!</h3>
-                <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto;">Você não precisa esperar o futuro para salvar vidas. Seja a voz da prevenção na sua escola e comunidade contra tempestades e tornados no Paraná.</p>
-                <a href="#guia-sobrevivencia" class="cta-button">Quero me Preparar Agora ⚡</a>
+            <div class="quick-grid">
+                <a href="#desastres" class="quick-card">
+                    <span class="quick-card-icon" aria-hidden="true">🌊</span>
+                    <h3>Enchentes</h3>
+                </a>
+                <a href="#desastres" class="quick-card">
+                    <span class="quick-card-icon" aria-hidden="true">⛈️</span>
+                    <h3>Tempestades & Raios</h3>
+                </a>
+                <a href="#desastres" class="quick-card">
+                    <span class="quick-card-icon" aria-hidden="true">🌪️</span>
+                    <h3>Vendavais & Tornados</h3>
+                </a>
+                <a href="#checklist" class="quick-card">
+                    <span class="quick-card-icon" aria-hidden="true">🎒</span>
+                    <h3>Kit de Emergência</h3>
+                </a>
+                <a href="#emergencia" class="quick-card">
+                    <span class="quick-card-icon" aria-hidden="true">📢</span>
+                    <h3>Alertas & Contatos</h3>
+                </a>
             </div>
+        </section>
 
-            <!-- Introdução ao Papel do Aluno Monitor -->
-            <article style="margin-top: 30px;">
-                <h3>O Papel do Aluno Monitor da Defesa Civil do Paraná</h3>
-                <p>O Paraná enfrenta anualmente desafios climáticos severos, de vendavais a tornados históricos. O <strong>Aluno Monitor</strong> é o elo oficial entre a Defesa Civil e o chão da escola. Mais do que um voluntário, você é um líder treinado para identificar riscos, espalhar alertas reais e guiar seus colegas em momentos críticos. Sua ação direta reduz o pânico e salva vidas.</p>
-            </article>
+        <!-- SEÇÃO: O QUE FAZ O MONITOR -->
+        <section id="monitor" aria-labelledby="monitor-title">
+            <h2 id="monitor-title" class="section-title">O Papel do Monitor Escolar</h2>
+            <p class="section-desc">O projeto de Monitores da Defesa Civil incentiva a cultura da prevenção no ambiente escolar.</p>
 
-            <!-- Resumo Visual das Seções (Cards de Acesso Rápido) -->
-            <h3>Explore o Portal</h3>
             <div class="grid-3">
                 <div class="card">
-                    <h4>Missão Monitor</h4>
-                    <p>Descubra suas atribuições práticas na escola e como sua liderança faz a diferença no dia a dia.</p>
-                    <a href="#o-que-faz" style="color: #004587; font-weight: bold;">Ver atribuições &rarr;</a>
+                    <span class="quick-card-icon" aria-hidden="true">🔍</span>
+                    <h3>Apoio na Identificação</h3>
+                    <p>Auxilia na observação do ambiente escolar, comunicando à direção sobre eventuais riscos aparentes, como telhas soltas ou galhos próximos à fiação.</p>
                 </div>
                 <div class="card">
-                    <h4>Manual de Emergência</h4>
-                    <p>O guia definitivo de sobrevivência para tempestades severas e tornados no território paranaense.</p>
-                    <a href="#guia-sobrevivencia" style="color: #004587; font-weight: bold;">Acessar o guia &rarr;</a>
+                    <span class="quick-card-icon" aria-hidden="true">📢</span>
+                    <h3>Multiplicação da Informação</h3>
+                    <p>Ajuda a divulgar os alertas oficiais emitidos pelos órgãos competentes e promove boas práticas de segurança entre os colegas.</p>
                 </div>
                 <div class="card">
-                    <h4>Central de Recursos</h4>
-                    <p>Baixe checklists, roteiros de simulação e modelos de mensagens para agilizar a prevenção escolar.</p>
-                    <a href="#kit-ferramentas" style="color: #004587; font-weight: bold;">Baixar ferramentas &rarr;</a>
+                    <span class="quick-card-icon" aria-hidden="true">🤝</span>
+                    <h3>Apoio em Simulações</h3>
+                    <p>Participa da organização de exercícios simulados de evacuação, seguindo sempre as orientações dos professores e equipes responsáveis.</p>
                 </div>
             </div>
         </section>
 
-        <!-- ================================================================= -->
-        <!-- SEÇÃO 3: PÁGINA "O QUE FAZ UM ALUNO MONITOR?"                    -->
-        <!-- ================================================================= -->
-        <section id="o-que-faz" aria-labelledby="o-que-faz-title">
-            <h2 id="o-que-faz-title">2. O que faz um Aluno Monitor?</h2>
-            <p>Atuar como Monitor da Defesa Civil é colocar a liderança em prática através de ações diretas de proteção. Suas responsabilidades são divididas em três pilares fundamentais:</p>
-            
-            <ul>
-                <li><strong>Mapear e Identificar Riscos na Escola:</strong> Olhar o ambiente com olhos de prevenção. Galhos tocando na fiação elétrica? Telhas soltas? Vidros trincados? O monitor documenta e reporta tudo à direção antes que a tempestade chegue.</li>
-                <li><strong>Multiplicar Alertas Oficiais:</strong> Monitorar os avisos meteorológicos da Defesa Civil do Paraná e repassar de forma ágil, organizada e sem pânico nos grupos oficiais de alunos e professores.</li>
-                <li><strong>Comandar Simulações de Evacuação:</strong> Apoiar o corpo docente na organização de rotas de fuga rápidas e seguras. Em uma emergência real, você será a referência de calma e direção para a sua turma.</li>
-            </ul>
-        </section>
-
-        <!-- ================================================================= -->
-        <!-- SEÇÃO 4: PÁGINA "GUIA DE SOBREVIVÊNCIA: TEMPESTADES E TORNADOS"    -->
-        <!-- ================================================================= -->
-        <section id="guia-sobrevivencia" aria-labelledby="guia-title">
-            <h2 id="guia-title">3. Guia de Sobrevivência: Tempestades e Tornados</h2>
-            <p>O Paraná possui uma das maiores incidências de tempestades severas do país. Aprenda a agir em cada momento do evento climático.</p>
+        <!-- SEÇÃO: ANTES, DURANTE E DEPOIS -->
+        <section id="guia" aria-labelledby="guia-title">
+            <h2 id="guia-title" class="section-title">O que fazer Antes, Durante e Depois?</h2>
+            <p class="section-desc">Regras gerais de preparação e conduta para minimizar riscos em desastres naturais.</p>
 
             <div class="grid-3">
-                <!-- Momento ANTES -->
-                <div class="card card-antes">
-                    <h3>🟢 ANTES (Prevenção e Alertas)</h3>
+                <!-- ANTES -->
+                <article class="card card-antes">
+                    <span class="card-header-badge badge-antes">PREVENÇÃO</span>
+                    <h3>🟢 ANTES</h3>
                     <ul>
-                        <li><strong>Leia as nuvens:</strong> Nuvens escuras que tocam o chão de forma funilada ou um céu de tom esverdeado/azulado escuro indicam perigo extremo iminente.</li>
-                        <li><strong>Aplicativo Defesa Civil PR:</strong> Baixe o app oficial e ative o recebimento de alertas por SMS (enviando o CEP para o número <code>40199</code>).</li>
-                        <li><strong>Kit de Emergência Escolar:</strong> Tenha sempre à mão uma mochila com lanterna a dínamo ou pilhas, rádio portátil, kit básico de primeiros socorros e lista de contatos de emergência (193 Bombeiros / 199 Defesa Civil).</li>
+                        <li>Cadastro no serviço oficial de alertas por SMS (enviando o CEP para o número <strong>40199</strong>).</li>
+                        <li>Identificação dos locais mais seguros da casa ou da escola.</li>
+                        <li>Montagem e manutenção do Kit de Emergência familiar.</li>
+                        <li>Fixação adequada de objetos que possam cair com ventos fortes.</li>
                     </ul>
-                </div>
+                </article>
 
-                <!-- Momento DURANTE -->
-                <div class="card card-durante">
-                    <h3>🔴 DURANTE (Ação Imediata)</h3>
-                    <div class="alert-box">
-                        <strong>Atenção à diferença:</strong> <br>
-                        • <em>Tempestade Forte:</em> Busque abrigo, fuja de árvores. <br>
-                        • <em>Sinal de Tornado:</em> Busque o subsolo ou cômodo interno sem janelas imediatamente!
-                    </div>
+                <!-- DURANTE -->
+                <article class="card card-durante">
+                    <span class="card-header-badge badge-durante">AÇÃO IMEDIATA</span>
+                    <h3>🟠 DURANTE</h3>
                     <ul>
-                        <li><strong>Na Escola:</strong> Afaste-se imediatamente das janelas e superfícies de vidro. Busque corredores centrais ou banheiros internos sem janelas. Deite-se no chão na posição de proteção (fetal, protegendo a cabeça com os braços).</li>
-                        <li><strong>Em Casa:</strong> Evite o uso de aparelhos conectados às tomadas. Não tome banho durante a tempestade (risco de choque via tubulação).</li>
-                        <li><strong>Áreas Externas:</strong> Nunca procure abrigo debaixo de árvores isoladas, coberturas leves de pontos de ônibus ou perto de redes elétricas e postes. Se estiver em campo aberto, agache-se longe de objetos altos.</li>
+                        <li>Mantenha a calma e siga as instruções dos serviços de emergência.</li>
+                        <li>Procure abrigo em construções alvenadas e seguras.</li>
+                        <li>Afaste-se de janelas, vidros e objetos pesados que possam tombar.</li>
+                        <li>Desconecte aparelhos eletrônicos das tomadas em caso de raios.</li>
                     </ul>
-                </div>
+                </article>
 
-                <!-- Momento DEPOIS -->
-                <div class="card card-depois">
-                    <h3>🟡 DEPOIS (Pós-Desastre)</h3>
+                <!-- DEPOIS -->
+                <article class="card card-depois">
+                    <span class="card-header-badge badge-depois">PÓS-EVENTO</span>
+                    <h3>🔵 DEPOIS</h3>
                     <ul>
+                        <li>Verifique se há feridos e preste os primeiros socorros apenas se souber como agir.</li>
+                        <li>Evite caminhar em áreas alagadas ou próximas a fiação elétrica caída.</li>
+                        <li>Retorne para casa somente após a liberação das autoridades locais.</li>
+                        <li>Avalie a estrutura da residência antes de reentrar.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: GUIA POR TIPO DE DESASTRE -->
+        <section id="desastres" aria-labelledby="desastres-title">
+            <h2 id="desastres-title" class="section-title">Orientações por Tipo de Evento</h2>
+            <p class="section-desc">Clique no tipo de evento para visualizar as orientações de segurança específicas.</p>
+
+            <!-- TEMPESTADES E RAIOS -->
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>⛈️ Tempestades Severas e Raios</span>
+                    <span class="accordion-icon" aria-hidden="true">▼</span>
+                </button>
+                <div class="accordion-content">
+                    <p><strong>Antes:</strong> Limpe calhas, recolha itens soltos do quintal e acompanhe a previsão do tempo.</p>
+                    <p><strong>Durante:</strong> Abrigue-se longe de janelas. Se estiver na rua, não se abrigue debaixo de árvores isoladas nem próximo a estruturas metálicas altas. Evite usar chuveiro elétrico.</p>
+                    <p><strong>Depois:</strong> Cuidado com cabos elétricos caídos na rua. Não toque em poças d'água em contato com postes ou fios.</p>
+                </div>
+            </div>
+
+            <!-- VENDAVAIS E TORNADOS -->
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>🌪️ Vendavais e Tornados</span>
+                    <span class="accordion-icon" aria-hidden="true">▼</span>
+                </button>
+                <div class="accordion-content">
+                    <p><strong>Antes:</strong> Reforce a fixação de telhados e portas. Mantenha portas e janelas bem fechadas ao sinal de vento forte.</p>
+                    <p><strong>Durante:</strong> Procure abrigo no cômodo mais central da edificação, de preferência sem janelas (como corredores internos ou banheiros). Proteja a cabeça.</p>
+                    <p><strong>Depois:</strong> Tenha cuidado ao transitar por áreas com escombros, árvores caídas e estruturas instáveis.</p>
+                </div>
+            </div>
+
+            <!-- ENCHENTES E ALAGAMENTOS -->
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>🌊 Enchentes e Alagamentos</span>
+                    <span class="accordion-icon" aria-hidden="true">▼</span>
+                </button>
+                <div class="accordion-content">
+                    <p><strong>Antes:</strong> Coloque móveis e documentos em locais altos se morar em área sujeita a inundações.</p>
+                    <p><strong>Durante:</strong> Não tente atravessar enxurradas a pé ou de veículo. A força da água pode arrastar pessoas e carros rapidamente.</p>
+                    <p><strong>Depois:</strong> Desinfete a casa e objetos atingidos pela água da enchente antes de reutilizá-los. Descarte alimentos que entraram em contato com a água contaminada.</p>
+                </div>
+            </div>
+
+            <!-- DESLIZAMENTOS -->
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>🪨 Deslizamentos de Terra</span>
+                    <span class="accordion-icon" aria-hidden="true">▼</span>
+                </button>
+                <div class="accordion-content">
+                    <p><strong>Antes:</strong> Observe sinais de perigo em encostas, como inclinação de postes/árvores, rachaduras no solo ou no piso das casas.</p>
+                    <p><strong>Durante:</strong> Ao notar qualquer estalo ou deslocamento de terra, saia imediatamente do local e avise os vizinhos e a Defesa Civil.</p>
+                    <p><strong>Depois:</strong> Não retorne à área de risco até que os órgãos técnicos realizem a vistoria e deem a autorização.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: CHECKLIST INTERATIVO -->
+        <section id="checklist" aria-labelledby="checklist-title">
+            <h2 id="checklist-title" class="section-title">Checklist do Kit de Emergência</h2>
+            <p class="section-desc">Monte uma mochila com itens essenciais para necessidades básicas durante uma emergência.</p>
+
+            <div class="checklist-container">
+                <p>Marque os itens à medida que os organiza em sua casa:</p>
+                <div class="checklist-grid" id="checklistForm">
+                    <label class="checklist-item"><input type="checkbox" id="item1"> 💧 Água potável (garrafas)</label>
+                    <label class="checklist-item"><input type="checkbox" id="item2"> 🥫 Alimentos não perecíveis</label>
+                    <label class="checklist-item"><input type="checkbox" id="item3"> 🔦 Lanterna com pilhas extras</label>
+                    <label class="checklist-item"><input type="checkbox" id="item4"> 📻 Rádio portátil a pilha/bateria</label>
+                    <label class="checklist-item"><input type="checkbox" id="item5"> 🩹 Kit de primeiros socorros</label>
+                    <label class="checklist-item"><input type="checkbox" id="item6"> 📄 Cópia de documentos pessoais</label>
+                    <label class="checklist-item"><input type="checkbox" id="item7"> 💊 Medicamentos de uso contínuo</label>
+                    <label class="checklist-item"><input type="checkbox" id="item8"> 🧼 Itens de higiene pessoal</label>
+                </div>
+                <button class="btn btn-secondary" style="color: var(--primary-blue); border-color: var(--primary-blue);" onclick="clearChecklist()">Limpar Checklist</button>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: QUIZ EDUCATIVO -->
+        <section id="quiz" aria-labelledby="quiz-title">
+            <h2 id="quiz-title" class="section-title">Teste seus Conhecimentos</h2>
+            <p class="section-desc">Responda às perguntas abaixo para testar o que você aprendeu sobre prevenção.</p>
+
+            <div class="quiz-container">
+                <div id="quizBox">
+                    <h3 id="quizQuestion" style="margin-bottom: 1rem;">Carregando pergunta...</h3>
+                    <div id="quizOptions"></div>
+                    <div id="quizFeedback" class="quiz-feedback" style="display: none;"></div>
+                </div>
+                <div id="quizScore" style="margin-top: 1rem; font-weight: bold; color: var(--primary-blue);">
+                    Pontuação: <span id="scoreVal">0</span> / <span id="totalVal">0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: EMERGÊNCIA E ALERTAS -->
+        <section id="emergencia" class="emergency-section" aria-labelledby="emergencia-title">
+            <h2 id="emergencia-title" style="color: var(--danger-red); margin-bottom: 0.5rem;">🚨 Em Caso de Emergência</h2>
+            <p>Acione os serviços oficiais imediatamente conforme a situação:</p>
+
+            <div class="emergency-grid">
+                <div class="emergency-card">
+                    <span class="emergency-number">199</span>
+                    <span class="emergency-label">Defesa Civil</span>
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem;">Desastres, inundações e desabamentos.</p>
+                </div>
+                <div class="emergency-card">
+                    <span class="emergency-number">193</span>
+                    <span class="emergency-label">Corpo de Bombeiros</span>
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem;">Resgates, incêndios e acidentes.</p>
+                </div>
+                <div class="emergency-card">
+                    <span class="emergency-number">192</span>
+                    <span class="emergency-label">SAMU</span>
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem;">Atendimento médico de urgência.</p>
+                </div>
+                <div class="emergency-card">
+                    <span class="emergency-number">190</span>
+                    <span class="emergency-label">Polícia Militar</span>
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem;">Segurança e ordem pública.</p>
+                </div>
+            </div>
+
+            <div class="alerts-box">
+                <h3>📢 Alertas Oficiais no Paraná</h3>
+                <p>Para receber alertas meteorológicos oficiais da Defesa Civil do Estado do Paraná via SMS:</p>
+                <p style="margin-top: 0.5rem;">👉 Envie um SMS com o número do seu <strong>CEP</strong> para o número <strong>40199</strong>. O serviço é gratuito.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                    <em>Link Oficial (Espaço reservado):</em> Consulte o portal do Governo do Estado do Paraná em <code>www.defesacivil.pr.gov.br</code> para obter informações institucionais atualizadas.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- RODAPÉ INSTITUCIONAL / ESCOLAR -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div>
+                <h3 style="margin-bottom: 1rem;">Sobre o Projeto</h3>
+                <p style="font-size: 0.9rem; opacity: 0.9;">Website educativo desenvolvido como trabalho escolar com o objetivo de promover a conscientização e cultura de prevenção contra desastres naturais entre alunos e a comunidade.</p>
+            </div>
+            <div>
+                <h3 style="margin-bottom: 1rem;">Identificação Escolar</h3>
+                <p style="font-size: 0.9rem; opacity: 0.9;"><strong>Escola:</strong> [Nome da Escola]</p>
+                <p style="font-size: 0.9rem; opacity: 0.9;"><strong>Turma:</strong> [Série / Turma]</p>
+                <p style="font-size: 0.9rem; opacity: 0.9;"><strong> Alunos:</strong> [Nome dos Integrantes do Grupo]</p>
+            </div>
+            <div>
+                <h3 style="margin-bottom: 1rem;">Fonte e Referências</h3>
+                <p style="font-size: 0.9rem; opacity: 0.9;">Conteúdo baseado nas diretrizes de orientação pública da Defesa Civil do Estado do Paraná e órgãos oficiais de proteção civil do Brasil.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 — Projeto Escolar Educativo. Sem fins lucrativos e sem vínculo institucional direto.</p>
+        </div>
+    </footer>
+
+    <!-- BOTÃO VOLTAR AO TOPO -->
+    <button class="back-to-top" id="backToTopBtn" aria-label="Voltar ao topo da página">▲</button>
+
+    <!-- LÓGICA JAVASCRIPT PURO -->
+    <script>
+        // ==========================================
+        // 1. MENU HAMBÚRGUER (MOBILE)
+        // ==========================================
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburgerBtn.addEventListener('click', () => {
+            const isExpanded = hamburgerBtn.getAttribute('aria-expanded') === 'true';
+            hamburgerBtn.setAttribute('aria-expanded', !isExpanded);
+            navMenu.classList.toggle('active');
+        });
+
+        // Fechar menu ao clicar em um link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburgerBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // ==========================================
+        // 2. ACCORDION (EXPANSÃO DE DESASTRES)
+        // ==========================================
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const isExpanded = header.getAttribute('aria-expanded') === 'true';
+                
+                // Fechar outros itens (opcional, mantendo experiência limpa)
+                document.querySelectorAll('.accordion-item').forEach(i => {
+                    i.classList.remove('active');
+                    i.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
+                });
+
+                if (!isExpanded) {
+                    item.classList.add('active');
+                    header.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+        // ==========================================
+        // 3. CHECKLIST INTERATIVO (COM LOCALSTORAGE)
+        // ==========================================
+        const checkboxes = document.querySelectorAll('#checklistForm input[type="checkbox"]');
+
+        // Carregar estado salvo
+        checkboxes.forEach(chk => {
+            const savedState = localStorage.getItem(chk.id);
+            if (savedState === 'true') {
+                chk.checked = true;
+            }
+
+            chk.addEventListener('change', (e) => {
+                localStorage.setItem(e.target.id, e.target.checked);
+            });
+        });
+
+        function clearChecklist() {
+            checkboxes.forEach(chk => {
+                chk.checked = false;
+                localStorage.removeItem(chk.id);
+            });
+        }
+
+        // ==========================================
+        // 4. QUIZ EDUCATIVO INTERATIVO
+        // ==========================================
+        const quizData = [
+            {
+                question: "Durante uma tempestade severa com raios, qual é o local mais seguro para se abrigar?",
+                options: [
+                    "Debaixo de uma árvore grande e isolada",
+                    "Dentro de uma edificação de alvenaria segura",
+                    "Próximo a cercas metálicas ou postes",
+                    "Em campos abertos ou quadras descobertas"
+                ],
+                correct: 1,
+                explanation: "Edificações fechadas de alvenaria oferecem proteção adequada contra raios e ventos fortes. Árvores isoladas e estruturas metálicas atraem descargas elétricas."
+            },
+            {
+                question: "Como você pode cadastrar seu celular para receber alertas gratuitos da Defesa Civil por SMS no Paraná?",
+                options: [
+                    "Ligando para o número 190",
+                    "Enviando o número do seu CEP para o SMS 40199",
+                    "Enviando uma mensagem para o número 193",
+                    "Baixando obrigatoriamente um aplicativo pago"
+                ],
+                correct: 1,
+                explanation: "O serviço oficial de alerta por SMS da Defesa Civil é gratuito. Basta enviar o CEP da sua região para o número 40199."
+            },
+            {
+                question: "Em caso de inundação ou enchente, qual é a atitude correta ao se deparar com uma correnteza d'água?",
+                options: [
+                    "Tentar atravessar a pé se a água parecer rasa",
+                    "Atravessar de carro em velocidade alta",
+                    "Não tentar atravessar e procurar um local alto e seguro",
+                    "Entrar na água para resgatar objetos perdidos"
+                ],
+                correct: 2,
+                explanation: "Nunca tente atravessar enxurradas a pé ou de carro. Poucos centímetros de água em movimento podem derrubar uma pessoa ou arrastar um veículo."
+            },
+            {
+                question: "Qual telefone de emergência deve ser acionado especificamente para o Corpo de Bombeiros?",
+                options: [
+                    "199",
+                    "190",
+                    "193",
+                    "192"
+                ],
+                correct: 2,
+                explanation: "O 193 é o número direto do Corpo de Bombeiros (resgates e incêndios). O 199 atende a Defesa Civil, o 192 o SAMU e o 190 a Polícia Militar."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const quizQuestionEl = document.getElementById('quizQuestion');
+        const quizOptionsEl = document.getElementById('quizOptions');
+        const quizFeedbackEl = document.getElementById('quizFeedback');
+        const scoreValEl = document.getElementById('scoreVal');
+        const totalValEl = document.getElementById('totalVal');
+
+        function loadQuiz() {
+            totalValEl.textContent = quizData.length;
+            const q = quizData[currentQuestion];
+            quizQuestionEl.textContent = `${currentQuestion + 1}. ${q.question}`;
+            quizOptionsEl.innerHTML = '';
+            quizFeedbackEl.style.display = 'none';
+
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option';
+                btn.textContent = opt;
+                btn.onclick = () => selectAnswer(index);
+                quizOptionsEl.appendChild(btn);
+            });
+        }
+
+        function selectAnswer(selectedIndex) {
+            const q = quizData[currentQuestion];
+            const buttons = quizOptionsEl.querySelectorAll('.quiz-option');
+
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selectedIndex === q.correct) {
+                buttons[selectedIndex].classList.add('correct');
+                quizFeedbackEl.textContent = "✨ Correto! " + q.explanation;
+                quizFeedbackEl.style.backgroundColor = "#dcfce7";
+                quizFeedbackEl.style.color = "#14532d";
+                score++;
+            } else {
+                buttons[selectedIndex].classList.add('incorrect');
+                buttons[q.correct].classList.add('correct');
+                quizFeedbackEl.textContent = "❌ Incorreto. " + q.explanation;
+                quizFeedbackEl.style.backgroundColor = "#fee2e2";
+                quizFeedbackEl.style.color = "#7f1d1d";
+            }
+
+            quizFeedbackEl.style.display = 'block';
+            scoreValEl.textContent = score;
+
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < quizData.length) {
+                    loadQuiz();
+                } else {
+                    showFinalResult();
+                }
+            }, 3500);
+        }
+
+        function showFinalResult() {
+            quizQuestionEl.textContent = "Quiz Concluído!";
+            quizOptionsEl.innerHTML = `<p style="padding: 1rem; font-size: 1.1rem;">Você acertou <strong>${score}</strong> de <strong>${quizData.length}</strong> perguntas.</p>`;
+            quizFeedbackEl.style.display = 'none';
+        }
+
+        loadQuiz();
+
+        // ==========================================
+        // 5. BOTÃO VOLTAR AO TOPO E SCROLL
+        // ==========================================
+        const backToTopBtn = document.getElementById('backToTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.style.display = 'flex';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
